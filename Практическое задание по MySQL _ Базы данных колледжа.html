@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Практическое задание по MySQL | Базы данных колледжа</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --accent: #38bdf8;
+      --accent-hover: #0ea5e9;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border: #334155;
+      --code-bg: #0b1120;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      padding: 24px 16px;
+    }
+
+    .container {
+      max-width: 880px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    h1 {
+      font-size: 1.85rem;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-bottom: 16px;
+    }
+
+    .badge-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .badge-blue { background: rgba(56, 189, 248, 0.15); color: var(--accent); border: 1px solid rgba(56, 189, 248, 0.3); }
+    .badge-warn { background: rgba(245, 158, 11, 0.15); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge-green { background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.3); }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      font-size: 1.35rem;
+      color: #fff;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      color: var(--accent);
+      margin: 18px 0 8px 0;
+    }
+
+    p, li {
+      color: var(--text);
+      font-size: 0.98rem;
+    }
+
+    ul, ol {
+      padding-left: 22px;
+      margin-bottom: 12px;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      overflow-x: auto;
+      font-family: "Fira Code", Consolas, Monaco, "Courier New", Courier, monospace;
+      font-size: 0.9rem;
+      color: #e2e8f0;
+      margin: 12px 0 16px 0;
+    }
+
+    code {
+      font-family: "Fira Code", Consolas, Monaco, monospace;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: var(--accent);
+      font-size: 0.9em;
+    }
+
+    .alert {
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin: 14px 0;
+      font-size: 0.95rem;
+    }
+
+    .alert-warning {
+      background: rgba(245, 158, 11, 0.1);
+      border-left: 4px solid var(--warning);
+      color: #fde68a;
+    }
+
+    .alert-danger {
+      background: rgba(239, 68, 68, 0.1);
+      border-left: 4px solid var(--danger);
+      color: #fca5a5;
+    }
+
+    .alert-info {
+      background: rgba(56, 189, 248, 0.1);
+      border-left: 4px solid var(--accent);
+      color: #bae6fd;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: 0.92rem;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      text-align: left;
+    }
+
+    th {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--accent);
+    }
+
+    .criteria-num {
+      font-weight: bold;
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <header>
+      <h1>Комплексное домашнее задание по MySQL</h1>
+      <p class="subtitle">Информационная система колледжа | Курс «Базы данных и СУБД» (1 курс)</p>
+      <div class="badge-bar">
+        <span class="badge badge-blue">Темы 1, 2 и 3</span>
+        <span class="badge badge-warn">Срок сдачи: к следующему занятию</span>
+        <span class="badge badge-green">Очная индивидуальная защита</span>
+      </div>
+    </header>
+
+    <section class="card">
+      <h2>1. Зачем нужно это задание?</h2>
+      <p>
+        В реальной разработке база данных — это основа любого сайта, мобильного приложения и корпоративной системы. 
+        За первые три занятия мы прошли полный базовый цикл работы с данными (CRUD), агрегацию и проектирование связанных таблиц.
+      </p>
+      <p style="margin-top: 8px;">
+        Цель задания — самостоятельно спроектировать модуль <strong>«Учебный деканат колледжа»</strong> из двух связанных таблиц, наполнить его данными, выполнить управление записями и сформировать сводные отчёты.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>2. Техническое задание (Что нужно написать)</h2>
+      <p>
+        Работу необходимо выполнять в едином SQL-файле (например, <code>homework.sql</code>) либо в онлайн-песочнице 
+        <strong>OneCompiler (MySQL)</strong> / <strong>SQLiteOnline (MariaDB)</strong>.
+      </p>
+
+      <h3>Часть А. Проектирование двух таблиц со связью</h3>
+      <p>Спроектируйте две таблицы:</p>
+      <ol>
+        <li>
+          Таблица отделений колледжа <code>departments</code>:
+          <ul>
+            <li><code>id</code> — целое число, первичный ключ (<code>PRIMARY KEY</code>), автонумерация (<code>AUTO_INCREMENT</code>).</li>
+            <li><code>department_name</code> — название отделения (текст до 100 символов, обязательное поле <code>NOT NULL</code>, например: <em>«Информационные технологии»</em>, <em>«Дизайн»</em>, <em>«Экономика»</em>).</li>
+            <li><code>head_of_department</code> — ФИО заведующего отделением (текст до 100 символов, обязательное поле).</li>
+          </ul>
+        </li>
+        <li>
+          Таблица учебных групп <code>college_groups</code>:
+          <ul>
+            <li><code>id</code> — целое число, первичный ключ, автонумерация.</li>
+            <li><code>group_code</code> — шифр группы (текст до 20 символов, обязательное поле, например: <em>«ИС-101»</em>, <em>«ДЗ-102»</em>).</li>
+            <li><code>students_count</code> — число студентов в группе (целое число, по умолчанию <code>0</code>).</li>
+            <li><code>course_num</code> — номер курса (целое число, по умолчанию <code>1</code>).</li>
+            <li><code>department_id</code> — внешний ключ (<code>FOREIGN KEY</code>), связывающий группу с её отделением из таблицы <code>departments(id)</code>.</li>
+          </ul>
+        </li>
+      </ol>
+
+      <h3>Часть Б. Наполнение данными (<code>INSERT INTO</code>)</h3>
+      <ol>
+        <li>Добавьте в таблицу <code>departments</code> <strong>3 разных отделения</strong>.</li>
+        <li>Добавьте в таблицу <code>college_groups</code> <strong>минимум 5 учебных групп</strong>, распределив их по разным отделениям через номер <code>department_id</code> (1, 2 или 3).</li>
+      </ol>
+
+      <h3>Часть В. Модификация и удаление (<code>UPDATE</code>, <code>DELETE</code>)</h3>
+      <ol>
+        <li><strong>Перевод на следующий курс:</strong> Увеличьте номер курса (<code>course_num</code>) на <code>1</code> у конкретной группы по её <code>id</code>.</li>
+        <li><strong>Корректировка состава:</strong> Измените количество студентов (<code>students_count</code>) в одной из групп на новое значение. Обязательно используйте фильтрацию <code>WHERE id = ...</code>.</li>
+        <li><strong>Расформирование группы:</strong> Удалите одну группу из таблицы <code>college_groups</code> по её <code>id</code> с помощью команды <code>DELETE FROM</code>.</li>
+      </ol>
+
+      <h3>Часть Г. Выборки, отчёты и связывание (<code>SELECT</code>, <code>LIKE</code>, <code>JOIN</code>, <code>GROUP BY</code>)</h3>
+      <p>Напишите 4 отдельных аналитических запроса:</p>
+      <ol>
+        <li><strong>Поиск по шаблону:</strong> Найти все группы, чей шифр начинается на буквы <code>'ИС%'</code> с помощью оператора <code>LIKE</code>.</li>
+        <li><strong>Сводная ведомость деканата (<code>JOIN</code>):</strong> Вывести список всех групп с указанием шифра группы, курса, названия отделения и ФИО заведующего отделением. Цифр <code>id</code> в результате быть не должно — только понятные человеку названия.</li>
+        <li><strong>Сортировка:</strong> Вывести список всех групп, отсортированный по количеству студентов от самой многочисленной к самой малой (<code>ORDER BY ... DESC</code>).</li>
+        <li><strong>Статистика по отделениям (<code>GROUP BY</code>):</strong> Сгруппировать группы по отделениям (<code>department_id</code>) и посчитать:
+          <ul>
+            <li>Сколько всего групп на каждом отделении (<code>COUNT(*)</code>).</li>
+            <li>Сколько суммарно студентов учится на каждом отделении (<code>SUM(students_count)</code>).</li>
+          </ul>
+        </li>
+      </ol>
+    </section>
+
+    <section class="card">
+      <h2>3. Что вы обязаны знать и понимать (Теоретический минимум)</h2>
+      <p>На защите преподаватель не оценивает слепо скопированный код. Вы должны уметь объяснить своими словами:</p>
+      <ul>
+        <li>Чем отличается <code>PRIMARY KEY</code> от <code>FOREIGN KEY</code>.</li>
+        <li>Зачем нужен параметр <code>AUTO_INCREMENT</code> и почему база не переиспользует номера удалённых строк.</li>
+        <li>Почему выполнение <code>UPDATE</code> или <code>DELETE</code> без условия <code>WHERE</code> является критической ошибкой.</li>
+        <li>Что делает символ <code>%</code> внутри оператора <code>LIKE</code>.</li>
+        <li>Как работает склейка <code>JOIN ... ON</code> и зачем перед названием столбца ставить имя таблицы через точку (например, <code>college_groups.group_code</code>).</li>
+        <li>Чем функция <code>COUNT()</code> отличается от функции <code>SUM()</code>.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>4. Регламент и правила очной защиты</h2>
+      <div class="alert alert-warning">
+        <strong>Формат сдачи:</strong> Защита проходит очно, индивидуально, за компьютером преподавателя или аудитории на следующей паре.
+      </div>
+
+      <ol>
+        <li>
+          <strong>Предъявление SQL-кода:</strong> Вы открываете свой готовый файл или онлайн-песочницу, запускаете скрипт и демонстрируете результат выполнения всех команд без синтаксических ошибок.
+        </li>
+        <li>
+          <strong>Контрольный вопрос по коду:</strong> Преподаватель указывает на случайную строку в вашем запросе (например, <code>ON ... = ...</code> или <code>DEFAULT 1</code>) и просит объяснить назначение каждого слова.
+        </li>
+        <li>
+          <strong>«Живая правка» (Live Coding):</strong> Преподаватель даёт одно маленькое дополнительное условие на 1 минуту прямо во время сдачи (например: <em>«А теперь измени запрос так, чтобы выводились только группы 2-го курса»</em> или <em>«Посчитай среднее число студентов через AVG»</em>).
+        </li>
+      </ol>
+
+      <div class="alert alert-danger">
+        <strong>Важно для тех, кто пропустил лекцию:</strong><br>
+        Если вы отсутствовали на занятии, оценка за тему №3 не может быть выставлена «автоматом». Успешная очная защита данного домашнего задания является обязательным допуском к закрытию пропущенной темы и промежуточной аттестации.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>5. Критерии оценивания</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Оценка</th>
+            <th>Критерии</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="criteria-num">«Отлично» (5)</span></td>
+            <td>
+              Скрипт полностью рабочий, без ошибок. Созданы обе таблицы с корректным внешним ключом. Написаны все запросы (включая <code>JOIN</code> и <code>GROUP BY</code>). Студент уверенно отвечает на вопросы и справляется с «живой правкой».
+            </td>
+          </tr>
+          <tr>
+            <td><span class="criteria-num">«Хорошо» (4)</span></td>
+            <td>
+              Скрипт выполнен, но есть мелкие недочёты в синтаксисе, либо студент путается в разнице между <code>COUNT</code> и <code>SUM</code> / долго вспоминает конструкцию <code>JOIN</code>.
+            </td>
+          </tr>
+          <tr>
+            <td><span class="criteria-num">«Удовлетворительно» (3)</span></td>
+            <td>
+              Выполнена только первая половина задания (создание и вставка), но связь таблиц и агрегатные функции не работают или написаны с чужой помощью без понимания логики.
+            </td>
+          </tr>
+          <tr>
+            <td><span class="criteria-num">«Не зачтено» (2)</span></td>
+            <td>
+              Задание не выполнено к началу пары, либо код сгенерирован/списан, и студент не может объяснить значение собственных строк. Назначается повторная сдача.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer style="text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 12px 0;">
+      Учебный курс по базам данных | Колледж | 2026 г.
+    </footer>
+
+  </div>
+
+</body>
+</html>
