@@ -1,268 +1,506 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Полный курс и практическое задание по MySQL | Колледж</title>
-  <style>
-    :root {
-      --bg: #0f172a;
-      --card-bg: #1e293b;
-      --card-inner: #0f172a;
-      --accent: #38bdf8;
-      --accent-hover: #0ea5e9;
-      --text: #f1f5f9;
-      --text-muted: #94a3b8;
-      --border: #334155;
-      --code-bg: #030712;
-      --success: #10b981;
-      --warning: #f59e0b;
-      --danger: #ef4444;
-      --transcr: #f472b6;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Конспект к экзамену: Базы данных и MySQL</title>
+    <style>
+        :root {
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --primary: #2563eb;
+            --primary-light: #eff6ff;
+            --notebook-bg: #fefce8;
+            --notebook-border: #eab308;
+            --danger-bg: #fef2f2;
+            --danger-border: #ef4444;
+            --code-bg: #0f172a;
+            --code-text: #f8fafc;
+            --border-color: #e2e8f0;
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.65;
-      padding: 24px 16px;
-    }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.65;
+            padding-bottom: 60px;
+        }
 
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-    }
+        /* Шапка */
+        header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
 
-    header {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 28px;
-      margin-bottom: 24px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    }
+        header .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 14px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
 
-    h1 {
-      font-size: 1.9rem;
-      color: var(--accent);
-      margin-bottom: 8px;
-      line-height: 1.3;
-    }
+        header h1 {
+            font-size: 2rem;
+            max-width: 800px;
+            margin: 0 auto 12px;
+            line-height: 1.25;
+        }
 
-    .subtitle {
-      color: var(--text-muted);
-      font-size: 1.02rem;
-      margin-bottom: 16px;
-    }
+        header p {
+            font-size: 1.05rem;
+            opacity: 0.9;
+            max-width: 680px;
+            margin: 0 auto;
+        }
 
-    .badge-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
 
-    .badge {
-      display: inline-block;
-      padding: 4px 12px;
-      border-radius: 999px;
-      font-size: 0.85rem;
-      font-weight: 600;
-    }
+        /* Памятка студенту */
+        .guide-banner {
+            background: var(--primary-light);
+            border: 1px solid #bfdbfe;
+            border-radius: 12px;
+            padding: 18px 22px;
+            margin-bottom: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
 
-    .badge-blue { background: rgba(56, 189, 248, 0.15); color: var(--accent); border: 1px solid rgba(56, 189, 248, 0.3); }
-    .badge-warn { background: rgba(245, 158, 11, 0.15); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.3); }
-    .badge-green { background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.3); }
+        .guide-banner strong {
+            color: #1d4ed8;
+            font-size: 1.05rem;
+        }
 
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 24px;
-      margin-bottom: 24px;
-    }
+        .sandbox-link {
+            display: inline-block;
+            margin-top: 6px;
+            color: #ffffff;
+            background-color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            align-self: flex-start;
+            transition: background 0.2s;
+        }
 
-    h2 {
-      font-size: 1.4rem;
-      color: #fff;
-      margin-bottom: 16px;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 8px;
-    }
+        .sandbox-link:hover {
+            background-color: #1d4ed8;
+        }
 
-    h3 {
-      font-size: 1.15rem;
-      color: var(--accent);
-      margin: 22px 0 10px 0;
-    }
+        /* Оглавление */
+        .toc {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 32px;
+        }
 
-    p, li {
-      color: var(--text);
-      font-size: 0.98rem;
-    }
+        .toc h2 {
+            font-size: 1.15rem;
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
 
-    ul, ol {
-      padding-left: 22px;
-      margin-bottom: 14px;
-    }
+        .toc ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 8px 16px;
+        }
 
-    li {
-      margin-bottom: 8px;
-    }
+        .toc a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
 
-    .transcr {
-      color: var(--transcr);
-      font-weight: 600;
-      font-size: 0.9em;
-    }
+        .toc a:hover {
+            text-decoration: underline;
+        }
 
-    pre {
-      background: var(--code-bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 16px;
-      overflow-x: auto;
-      font-family: "Fira Code", Consolas, Monaco, "Courier New", Courier, monospace;
-      font-size: 0.9rem;
-      color: #e2e8f0;
-      margin: 12px 0 16px 0;
-    }
+        /* Разделы */
+        section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
 
-    code {
-      font-family: "Fira Code", Consolas, Monaco, monospace;
-      background: rgba(255, 255, 255, 0.08);
-      padding: 2px 6px;
-      border-radius: 4px;
-      color: var(--accent);
-      font-size: 0.9em;
-    }
+        .part-label {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 4px;
+            display: block;
+        }
 
-    .alert {
-      border-radius: 8px;
-      padding: 14px 18px;
-      margin: 16px 0;
-      font-size: 0.95rem;
-    }
+        section h2 {
+            font-size: 1.55rem;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #f1f5f9;
+        }
 
-    .alert-warning {
-      background: rgba(245, 158, 11, 0.1);
-      border-left: 4px solid var(--warning);
-      color: #fde68a;
-    }
+        h3 {
+            font-size: 1.2rem;
+            margin: 26px 0 12px;
+            color: #0f172a;
+        }
 
-    .alert-danger {
-      background: rgba(239, 68, 68, 0.1);
-      border-left: 4px solid var(--danger);
-      color: #fca5a5;
-    }
+        p {
+            margin-bottom: 14px;
+        }
 
-    .alert-info {
-      background: rgba(56, 189, 248, 0.1);
-      border-left: 4px solid var(--accent);
-      color: #bae6fd;
-    }
+        ul, ol {
+            margin: 0 0 16px 22px;
+        }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 16px 0;
-      font-size: 0.92rem;
-    }
+        li {
+            margin-bottom: 6px;
+        }
 
-    th, td {
-      border: 1px solid var(--border);
-      padding: 10px 12px;
-      text-align: left;
-    }
+        /* Схема-цепочка */
+        .schema-chain {
+            background: #f1f5f9;
+            border-radius: 10px;
+            padding: 16px;
+            text-align: center;
+            font-weight: 600;
+            margin: 18px 0;
+            font-size: 0.98rem;
+            border: 1px dashed #cbd5e1;
+        }
 
-    th {
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--accent);
-    }
+        .schema-chain span {
+            display: inline-block;
+            background: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            margin: 4px;
+        }
 
-    .criteria-num {
-      font-weight: bold;
-      color: var(--accent);
-    }
+        /* Блок "В ТЕТРАДЬ" */
+        .notebook {
+            background-color: var(--notebook-bg);
+            border-left: 5px solid var(--notebook-border);
+            border-radius: 0 12px 12px 0;
+            padding: 20px 24px;
+            margin: 20px 0;
+            box-shadow: 0 2px 5px rgba(234, 179, 8, 0.08);
+        }
 
-    .step-box {
-      background: var(--card-inner);
-      border: 1px dashed var(--border);
-      border-radius: 8px;
-      padding: 16px;
-      margin: 12px 0;
-    }
-  </style>
+        .notebook-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            color: #854d0e;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        /* Блок предупреждения */
+        .warning-box {
+            background-color: var(--danger-bg);
+            border-left: 5px solid var(--danger-border);
+            border-radius: 0 12px 12px 0;
+            padding: 16px 20px;
+            margin: 18px 0;
+            color: #991b1b;
+        }
+
+        /* Инлайн-код и произношение */
+        code {
+            font-family: "JetBrains Mono", Consolas, Monaco, monospace;
+            background: #f1f5f9;
+            color: #0f172a;
+            padding: 2px 6px;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+
+        .notebook code {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid #fde047;
+        }
+
+        .pronounce {
+            color: var(--text-muted);
+            font-size: 0.92em;
+            font-style: italic;
+        }
+
+        /* Блоки SQL-кода */
+        .code-wrapper {
+            position: relative;
+            margin: 16px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            background: var(--code-bg);
+        }
+
+        .code-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1e293b;
+            padding: 8px 16px;
+            color: #94a3b8;
+            font-size: 0.8rem;
+            font-family: monospace;
+        }
+
+        .copy-btn {
+            background: #334155;
+            color: #f8fafc;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.78rem;
+            transition: background 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: #475569;
+        }
+
+        pre {
+            padding: 18px;
+            overflow-x: auto;
+            color: var(--code-text);
+            font-family: "JetBrains Mono", Consolas, Monaco, monospace;
+            font-size: 0.92rem;
+            line-height: 1.55;
+        }
+
+        pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+            border: none !important;
+        }
+
+        /* Таблицы */
+        .table-wrap {
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 10px 14px;
+            text-align: left;
+        }
+
+        th {
+            background: #f1f5f9;
+            font-weight: 600;
+        }
+
+        /* Карточки самопроверки */
+        details {
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 14px 18px;
+            margin-bottom: 12px;
+            background: #f8fafc;
+        }
+
+        summary {
+            font-weight: 600;
+            cursor: pointer;
+            color: #1e293b;
+        }
+
+        details p {
+            margin-top: 10px;
+            margin-bottom: 0;
+            color: #334155;
+            padding-top: 10px;
+            border-top: 1px dashed #cbd5e1;
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 640px) {
+            header h1 { font-size: 1.5rem; }
+            section { padding: 20px 16px; }
+            .notebook { padding: 16px; }
+        }
+    </style>
 </head>
 <body>
 
-  <div class="container">
+<header>
+    <div class="badge">Базы данных и MySQL • Уроки 1–3</div>
+    <h1>Архитектура баз данных и язык SQL: от первой таблицы до связей JOIN</h1>
+    <p>Полный учебный конспект для подготовки к проверочной работе и экзамену</p>
+</header>
 
-    <header>
-      <h1>Базы данных и MySQL: Полный конспект и Домашнее задание</h1>
-      <p class="subtitle">Информационная система колледжа | Курс "Базы данных" и "Проектирование баз данных"</p>
-      <div class="badge-bar">
-        <span class="badge badge-blue">Конспект уроков 1, 2 и 3</span>
-        <span class="badge badge-warn">Срок сдачи: к началу следующего занятия</span>
-        <span class="badge badge-green">Индивидуальная очная защита</span>
-      </div>
-    </header>
+<div class="container">
 
-    <!-- ИНСТРУКЦИЯ ПО РАБОЧЕЙ СРЕДЕ ONECOMPILER -->
-    <section class="card">
-      <h2>0. Где писать и запускать код: Инструкция по OneCompiler</h2>
-      <p>
-        Вам <strong>не нужно</strong> устанавливать серверы или настраивать сложные программы на своём компьютере. 
-        Весь код курса пишется и проверяется в бесплатном онлайн-компиляторе:
-      </p>
+    <div class="guide-banner">
+        <strong>📌 Как готовиться по этой странице:</strong>
+        <span>Все блоки с жёлтой полосой <b>«✍️ Записать в тетрадь (Конспект)»</b> — это готовая выжимка теории и шаблонов кода. Вы можете переписать их к себе в рабочую тетрадь и использовать для подготовки к устному опросу и практическому зачёту.</span>
+        <a href="https://onecompiler.com/mysql" target="_blank" rel="noopener" class="sandbox-link">▶ Открыть онлайн-песочницу MySQL</a>
+    </div>
 
-      <div class="step-box">
+    <nav class="toc">
+        <h2>Содержание лекции</h2>
+        <ul>
+            <li><a href="#part1">Часть 1. Зачем нужны БД, СУБД и SQL. Устройство таблицы</a></li>
+            <li><a href="#part2">Часть 2. Правило CRUD: Создание (CREATE) и Чтение (SELECT)</a></li>
+            <li><a href="#part3">Часть 3. Изменение (UPDATE), Удаление (DELETE) и Статистика</a></li>
+            <li><a href="#part4">Часть 4. Связи таблиц (FOREIGN KEY, JOIN) и GROUP BY</a></li>
+            <li><a href="#quiz">Вопросы для самопроверки перед экзаменом</a></li>
+        </ul>
+    </nav>
+
+    <!-- ЧАСТЬ 1 -->
+    <section id="part1">
+        <span class="part-label">Часть 1</span>
+        <h2>Зачем нужны БД, СУБД и SQL</h2>
+
+        <h3>Шаг 1. Почему Excel не подходит для информационной системы колледжа?</h3>
+        <p>Когда вы заходите в электронный дневник с телефона, вы видите своё расписание и оценки. Если вы потеряете телефон, оценки не исчезнут, потому что они лежат на сервере в <b>Базе Данных</b>.</p>
+        <p>Но почему учебной части просто не завести один большой файл Excel на компьютере директора и не вписывать туда все 2 000 студентов? Если хранить всё в одном файле, случатся три катастрофы:</p>
         <ol>
-          <li>Откройте сайт: <a href="https://onecompiler.com/mysql" target="_blank" style="color: var(--accent); font-weight: bold;">onecompiler.com/mysql</a> (работает с компьютера и с телефона).</li>
-          <li>В центральном окне редактора выделите весь стандартный шаблонный текст (<code>Ctrl + A</code>) и сотрите его (<code>Backspace</code>), чтобы поле стало чистым.</li>
-          <li>Пишите свои SQL-команды. Команды выполняются строго сверху вниз. В конце каждого предложения обязательно ставьте точку с запятой <code>;</code>.</li>
-          <li>Нажмите синюю кнопку <strong>«Run»</strong> (вверху или внизу справа).</li>
-          <li>В нижнем окне <strong>Output</strong> появится результат выполнения вашей таблицы или сообщение об ошибке (с указанием номера строки, где допущена опечатка).</li>
+            <li><b>Зависание при одновременной работе:</b> в конце пары 50 преподавателей одновременно ставят оценки, а 500 студентов смотрят дневник. Обычный файл зависнет или сотрёт чужие правки.</li>
+            <li><b>Ошибки и отсутствие правил:</b> кто-то напишет курс словом «первый», кто-то цифрой «1», а кто-то случайно нажмёт Delete и сотрёт целую группу.</li>
+            <li><b>Медленный поиск:</b> когда за 10 лет накопятся сотни тысяч оценок, поиск одного студента в обычной таблице займёт минуты.</li>
         </ol>
-      </div>
+        <p>Поэтому в IT используют связку из трёх вещей: <b>БД, СУБД и SQL</b>.</p>
 
-      <div class="alert alert-info">
-        <strong>Совет по сохранению:</strong> В онлайн-песочнице код не сохраняется автоматически после закрытия вкладки. 
-        Обязательно копируйте свой готовый текст в обычный Блокнот или сохраняйте отдельным файлом с расширением <code>.sql</code>.
-      </div>
+        <div class="schema-chain">
+            <span>📱 Электронный дневник</span> ➔ <em>(запрос на языке SQL)</em> ➔ <span>🤖 Робот MySQL (СУБД)</span> ➔ <span>🗄️ Архив таблиц (БД)</span>
+        </div>
+
+        <div class="notebook">
+            <div class="notebook-header">✍️ Записать в тетрадь (Конспект)</div>
+            <p><b>Тема: Основы баз данных и языка SQL</b></p>
+            <ol>
+                <li><b>БД (База Данных)</b> — это цифровое хранилище (архив), где данные разложены по строгим таблицам.</li>
+                <li><b>СУБД (Система управления базами данных)</b> — программа-охранник и управляющий базой. Самая популярная СУБД — <b>MySQL</b> <span class="pronounce">[Май-Эс-Кью-Эль]</span>.</li>
+                <li><b>SQL</b> <span class="pronounce">[Эс-Кью-Эль]</span> (<i>Structured Query Language</i>) — язык структурированных запросов, на котором мы отдаём команды программе MySQL.</li>
+            </ol>
+        </div>
+
+        <h3>Шаг 2. Устройство таблицы и зачем нужен столбец <code>id</code></h3>
+        <p>Внутри любой таблицы MySQL есть <b>столбцы (поля)</b> — это шапка таблицы, то есть характеристики (ФИО, группа, курс), и <b>строки (записи)</b> — это конкретные студенты. Одному студенту соответствует одна строка.</p>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>full_name</th>
+                        <th>group_name</th>
+                        <th>course</th>
+                        <th>scholarship</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Смирнов Алексей</td>
+                        <td>ИС-101</td>
+                        <td>1</td>
+                        <td>2500</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Козлова Мария</td>
+                        <td>ДЗ-102</td>
+                        <td>1</td>
+                        <td>3500</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p>Названия таблиц и столбцов всегда пишут латиницей и без пробелов. Если нужно два слова — ставим нижнее подчёркивание, например <code>full_name</code> <span class="pronounce">[фул нЭйм]</span>.</p>
+        <p><b>Почему нельзя искать студента в базе просто по фамилии и имени?</b> Потому что в колледже легко могут учиться два полных тёзки — два Ивановых Александра! Чтобы никогда не перепутать людей при начислении стипендии или отчислении, у каждой строки есть столбец <code>id</code> <span class="pronounce">[ай-дИ]</span> — уникальный номер в базе (как номер паспорта: 1, 2, 3...).</p>
+
+        <div class="notebook">
+            <div class="notebook-header">✍️ Записать в тетрадь (Конспект)</div>
+            <p><b>Устройство таблицы:</b></p>
+            <ul>
+                <li><b>Столбцы (поля)</b> — характеристики (пишутся латиницей без пробелов, через <code>_</code>).</li>
+                <li><b>Строки (записи)</b> — конкретные объекты (один студент = одна строка).</li>
+                <li><b><code>id</code> <span class="pronounce">[ай-дИ]</span></b> — уникальный номер строки в таблице (не может повторяться, нужен чтобы не путать однофамильцев).</li>
+            </ul>
+        </div>
     </section>
 
-    <!-- КОНСПЕКТ ЗАНЯТИЯ 1 -->
-    <section class="card">
-      <h2>1. Конспект занятия №1: Создание таблиц, наполнение и выборка</h2>
+    <!-- ЧАСТЬ 2 -->
+    <section id="part2">
+        <span class="part-label">Часть 2</span>
+        <h2>Правило CRUD: Создание и чтение данных</h2>
 
-      <h3>1.1. Базовые понятия</h3>
-      <ul>
-        <li><strong>База данных (БД)</strong> — упорядоченное хранилище информации в виде связанных таблиц. В отличие от файлов Excel, БД выдерживает миллионы одновременных пользователей без зависаний и потерь.</li>
-        <li><strong>СУБД MySQL</strong> — программа-сервер («робот-кладовщик»), которая физически управляет файлами базы данных, обеспечивает безопасность и выполняет наши запросы.</li>
-        <li><strong>SQL</strong> <span class="transcr">[Эс-Кью-Эль]</span> — язык структурированных запросов, команды на котором мы отправляем роботу MySQL.</li>
-      </ul>
+        <h3>Шаг 1. Правило CRUD и создание таблицы (<code>CREATE TABLE</code>)</h3>
+        <p>Вся работа с данными в программировании строится на правиле четырёх букв — <b>CRUD</b> <span class="pronounce">[крад]</span>:</p>
+        <ul>
+            <li><b>C</b>reate (Создание) — <code>CREATE TABLE</code>, <code>INSERT INTO</code></li>
+            <li><b>R</b>ead (Чтение / Поиск) — <code>SELECT</code></li>
+            <li><b>U</b>pdate (Обновление / Изменение) — <code>UPDATE</code></li>
+            <li><b>D</b>elete (Удаление) — <code>DELETE</code></li>
+        </ul>
+        <p>Чтобы приказать MySQL построить новую таблицу студентов, мы пишем команду <code>CREATE TABLE</code> <span class="pronounce">[криЭйт тЭйбл]</span>. Обратите внимание на синтаксис:</p>
+        <ul>
+            <li>Внутри круглых скобок через запятую перечисляются 5 наших столбцов. После каждого столбца стоит запятая, но <b>после последнего столбца перед закрывающей скобкой запятая НЕ ставится!</b> А в самом конце команды обязательно ставится точка с запятой <code>;</code>.</li>
+            <li>Почему номер группы <code>'ИС-101'</code> имеет текстовый тип <code>VARCHAR</code>, а не числовой <code>INT</code>? Потому что там есть буквы и дефис — для компьютера это текст!</li>
+        </ul>
 
-      <h3>1.2. Анатомия таблицы и типы данных</h3>
-      <ul>
-        <li><strong>Столбцы (поля)</strong> — характеристики (названия пишем латиницей: <code>full_name</code>, <code>course</code>).</li>
-        <li><strong>Строки (записи)</strong> — конкретные анкеты студентов/записи.</li>
-        <li><code>INT</code> <span class="transcr">[инт]</span> — тип данных «целое число» (1, 2, 2500).</li>
-        <li><code>VARCHAR(N)</code> <span class="transcr">[вАр-чар]</span> — строка переменной длины (текст), где <code>N</code> — максимальное число символов.</li>
-        <li><code>PRIMARY KEY</code> <span class="transcr">[прАймари ки]</span> — «первичный ключ». Столбец (обычно <code>id</code>), гарантирующий уникальность каждой строки (как номер паспорта).</li>
-        <li><code>AUTO_INCREMENT</code> <span class="transcr">[Ауто инкримЕнт]</span> — автоматическая нумерация: база сама ставит номер 1, 2, 3... при добавлении новой строки.</li>
-        <li><code>NOT NULL</code> <span class="transcr">[нот нал]</span> — запрет оставлять поле пустым.</li>
-        <li><code>DEFAULT значение</code> <span class="transcr">[дифОлт]</span> — значение по умолчанию, если поле не заполнили при вставке.</li>
-      </ul>
-
-      <h3>1.3. Базовые команды занятия №1</h3>
-      <p><strong>1. Создание таблицы:</strong> <code>CREATE TABLE</code> <span class="transcr">[криЭйт тЭйбл]</span></p>
+        <div class="notebook">
+            <div class="notebook-header">✍️ Записать в тетрадь (Конспект + Код)</div>
+            <div class="code-wrapper">
+                <div class="code-bar"><span>SQL — Создание таблицы</span><button class="copy-btn" onclick="copyCode(this)">Скопировать код</button></div>
 <pre><code>CREATE TABLE students (
     id INT PRIMARY KEY AUTO_INCREMENT,
     full_name VARCHAR(100) NOT NULL,
@@ -270,232 +508,279 @@
     course INT DEFAULT 1,
     scholarship INT DEFAULT 0
 );</code></pre>
+            </div>
+            <p><b>Типы данных и параметры столбцов:</b></p>
+            <ul>
+                <li><code>INT</code> <span class="pronounce">[инт]</span> — целое число (<code>1</code>, <code>2500</code>).</li>
+                <li><code>VARCHAR(100)</code> <span class="pronounce">[вАр-чар]</span> — текст переменной длины до 100 символов (пишется в одинарных кавычках <code>' '</code>).</li>
+                <li><code>PRIMARY KEY</code> <span class="pronounce">[прАймари ки]</span> — первичный ключ (делает номер <code>id</code> уникальным и обязательным).</li>
+                <li><code>AUTO_INCREMENT</code> <span class="pronounce">[Ауто инкримЕнт]</span> — автоматическая нумерация (<code>+1</code> для каждой новой строки: 1, 2, 3...).</li>
+                <li><code>NOT NULL</code> <span class="pronounce">[нот нал]</span> — запрет пустоты (поле обязательно нужно заполнить).</li>
+                <li><code>DEFAULT ...</code> <span class="pronounce">[дифОлт]</span> — значение по умолчанию (подставится само, если поле не заполнили).</li>
+            </ul>
+        </div>
 
-      <p><strong>2. Добавление данных:</strong> <code>INSERT INTO ... VALUES</code> <span class="transcr">[инсЁрт Инту ... вЭльюс]</span><br>
-      <em>Правило:</em> текст всегда пишем в одинарных кавычках <code>'Текст'</code>, числа — без кавычек.</p>
-<pre><code>INSERT INTO students (full_name, group_name, course, scholarship) 
-VALUES ('Смирнов Алексей', 'ИС-101', 1, 2500);
+        <h3>Шаг 2. Заполнение таблицы (<code>INSERT INTO</code>)</h3>
+        <p>Таблица создана, но она пустая. Чтобы зачислить в неё студентов, используется команда <code>INSERT INTO ... VALUES</code> <span class="pronounce">[инсЁрт Инту ... вЭльюс]</span> — «Вставить в таблицу ... значения».</p>
+        <ul>
+            <li><b>Почему мы не пишем в скобках столбец <code>id</code>?</b> Потому что за него работает автомат <code>AUTO_INCREMENT</code>!</li>
+            <li><b>Главное правило кавычек:</b> любой текст (<code>VARCHAR</code>) обязательно оборачивается в одинарные кавычки <code>'Смирнов Алексей'</code>, <code>'ИС-101'</code>. А числа (<code>INT</code>) пишутся без кавычек.</li>
+        </ul>
 
--- Можно добавлять несколько строк сразу через запятую:
+        <div class="notebook">
+            <div class="notebook-header">✍️ Записать в тетрадь (Конспект + Код)</div>
+            <div class="code-wrapper">
+                <div class="code-bar"><span>SQL — Добавление записей</span><button class="copy-btn" onclick="copyCode(this)">Скопировать код</button></div>
+<pre><code>-- Добавление строк в таблицу (INSERT INTO — вставить в..., VALUES — значения)
 INSERT INTO students (full_name, group_name, course, scholarship) VALUES
-('Козлова Мария', 'ДЗ-102', 1, 3500),
-('Волков Дмитрий', 'ИС-201', 2, 4000);</code></pre>
+('Смирнов Алексей', 'ИС-101', 1, 2500),
+('Козлова Мария', 'ДЗ-102', 1, 3500);
 
-      <p><strong>3. Выборка данных:</strong> <code>SELECT</code> <span class="transcr">[селЕкт]</span>, фильтрация <code>WHERE</code> <span class="transcr">[вэа]</span>, сортировка <code>ORDER BY</code> <span class="transcr">[Ордэр бай]</span></p>
-<pre><code>-- Выбрать всё из таблицы (звёздочка * означает "все столбцы"):
+-- Если не указать course и scholarship, сработает DEFAULT (курс = 1, стипендия = 0):
+INSERT INTO students (full_name, group_name) 
+VALUES ('Орлов Максим', 'ИС-101');</code></pre>
+            </div>
+        </div>
+
+        <h3>Шаг 3. Вывод на экран, фильтры и поиск (<code>SELECT</code>, <code>WHERE</code>, <code>LIKE</code>, <code>ORDER BY</code>)</h3>
+        <p>За чтение данных и вывод ведомостей на экран отвечает команда <code>SELECT</code> <span class="pronounce">[селЕкт]</span> — «Выбрать / Показать»:</p>
+        <ul>
+            <li>Звёздочка <code>*</code> означает «все столбцы».</li>
+            <li>Слово <code>WHERE</code> <span class="pronounce">[вэа]</span> («Где») включает фильтр. Условия можно связывать словами <code>AND</code> <span class="pronounce">[энд]</span> (И — оба условия сразу) или <code>OR</code> <span class="pronounce">[ор]</span> (ИЛИ — любое из двух).</li>
+            <li>Для поиска по кусочку слова (например, найти всех на фамилию «Смирн...») используется оператор <code>LIKE</code> <span class="pronounce">[лайк]</span> («Похоже на») и знак процента <code>%</code>, который заменяет любое количество любых символов.</li>
+            <li>Команда <code>ORDER BY</code> <span class="pronounce">[Ордер бай]</span> («Упорядочить по») сортирует таблицу: <code>ASC</code> <span class="pronounce">[аск]</span> — по возрастанию (от А до Я), <code>DESC</code> <span class="pronounce">[дэск]</span> — по убыванию (от максимума к минимуму), а <code>LIMIT</code> <span class="pronounce">[лИмит]</span> ограничивает количество выводимых строк.</li>
+        </ul>
+
+        <div class="notebook">
+            <div class="notebook-header">✍️ Записать в тетрадь (Конспект + Код)</div>
+            <div class="code-wrapper">
+                <div class="code-bar"><span>SQL — Выборка, фильтрация и сортировка</span><button class="copy-btn" onclick="copyCode(this)">Скопировать код</button></div>
+<pre><code>-- 1. Вывести ВСЕ столбцы (*) из таблицы
 SELECT * FROM students;
 
--- Выбрать только студентов 1 курса со стипендией больше 2000:
-SELECT full_name, scholarship FROM students WHERE course = 1 AND scholarship > 2000;
+-- 2. Вывести только нужные столбцы с точным фильтром WHERE (Где)
+SELECT full_name, scholarship FROM students 
+WHERE group_name = 'ИС-101' AND scholarship > 0;
 
--- Отсортировать по стипендии от максимума к минимуму (DESC):
-SELECT * FROM students ORDER BY scholarship DESC;</code></pre>
-    </section>
-
-    <!-- КОНСПЕКТ ЗАНЯТИЯ 2 -->
-    <section class="card">
-      <h2>2. Конспект занятия №2: Изменение, удаление, умный поиск и статистика</h2>
-
-      <h3>2.1. Изменение данных: <code>UPDATE ... SET ... WHERE</code> <span class="transcr">[апдЭйт ... сэт ... вэа]</span></h3>
-      <p>
-        Команда обновляет информацию в уже существующих строках. 
-        <strong>Критически важно:</strong> всегда указывать <code>WHERE id = ...</code>. Если забыть <code>WHERE</code>, база обновит абсолютно все строки в таблице!
-      </p>
-<pre><code>-- Назначить студенту с id = 1 стипендию 3000 рублей:
-UPDATE students 
-SET scholarship = 3000 
-WHERE id = 1;
-
--- Изменить группу и курс одновременно (через запятую):
-UPDATE students 
-SET group_name = 'ИС-201', course = 2 
-WHERE id = 1;</code></pre>
-
-      <h3>2.2. Удаление строк: <code>DELETE FROM ... WHERE</code> <span class="transcr">[дилИт фром ... вэа]</span></h3>
-      <p>
-        Полностью стирает строку из таблицы. Если не написать <code>WHERE</code>, таблица очистится целиком!
-      </p>
-<pre><code>-- Отчислить (удалить) студента с id = 3:
-DELETE FROM students 
-WHERE id = 3;</code></pre>
-
-      <div class="alert alert-warning">
-        <strong>Почему AUTO_INCREMENT не возвращает старые номера?</strong><br>
-        Если удалить строку с <code>id = 3</code>, следующий новый студент получит номер <code>4</code>, а не <code>3</code>. 
-        Удалённые номера никогда не используются повторно, чтобы не привязать к новому человеку старые архивные записи или долги прежнего владельца номера.
-      </div>
-
-      <h3>2.3. Поиск по кусочку текста: <code>LIKE</code> <span class="transcr">[лайк]</span> и знак <code>%</code></h3>
-      <p>Знак процента <code>%</code> заменяет любое количество любых символов:</p>
-<pre><code>-- Найти студентов, чья фамилия НАЧИНАЕТСЯ на 'Смирнов':
+-- 3. Умный поиск по части слова: LIKE и % (найдёт и Смирнова, и Смирнову)
 SELECT * FROM students WHERE full_name LIKE 'Смирнов%';
 
--- Найти группы, содержащие буквы 'ИС' в любом месте:
-SELECT * FROM students WHERE group_name LIKE '%ИС%';</code></pre>
-
-      <h3>2.4. Агрегатные функции (считаем за бухгалтерию)</h3>
-      <ul>
-        <li><code>COUNT(*)</code> <span class="transcr">[кАунт]</span> — считает общее число строк.</li>
-        <li><code>SUM(столбец)</code> <span class="transcr">[сам]</span> — складывает все числа в столбце.</li>
-        <li><code>AVG(столбец)</code> <span class="transcr">[Эй-ви-джИ]</span> (Average) — вычисляет среднее арифметическое.</li>
-        <li><code>MIN(столбец)</code> / <code>MAX(столбец)</code> — находит минимальное и максимальное значение.</li>
-      </ul>
-<pre><code>-- Посчитать сумму всех стипендий и количество студентов:
-SELECT COUNT(*), SUM(scholarship), AVG(scholarship) FROM students;</code></pre>
+-- 4. Сортировка ORDER BY (DESC — по убыванию, ASC — по возрастанию) и LIMIT
+SELECT * FROM students ORDER BY scholarship DESC LIMIT 2;</code></pre>
+            </div>
+        </div>
     </section>
 
-    <!-- КОНСПЕКТ ЗАНЯТИЯ 3 -->
-    <section class="card">
-      <h2>3. Конспект занятия №3: Связи между таблицами (FOREIGN KEY, JOIN) и GROUP BY</h2>
+    <!-- ЧАСТЬ 3 -->
+    <section id="part3">
+        <span class="part-label">Часть 3</span>
+        <h2>Изменение, удаление и математика в БД</h2>
 
-      <h3>3.1. Почему нельзя хранить всё в одной таблице?</h3>
-      <p>
-        Если хранить название отделения и ФИО куратора прямо в таблице студентов, эти длинные строки придётся копировать сотни раз. 
-        При смене куратора придётся переписывать 30 строк. Поэтому данные разделяют на две таблицы:
-        в главной таблице хранят информацию об отделении/группе, а у студента записывают лишь короткую цифру — <code>group_id</code>.
-      </p>
+        <h3>Шаг 1. Обновление (<code>UPDATE</code>) и удаление (<code>DELETE FROM</code>)</h3>
+        <p>В жизни колледжа данные постоянно меняются: студент сдал сессию — ему нужно изменить стипендию с <code>0</code> на <code>3000</code>. А кто-то окончил колледж — его нужно удалить из базы.</p>
+        <ul>
+            <li>Для изменения существующей строки используется команда <code>UPDATE ... SET ... WHERE</code> <span class="pronounce">[апдЭйт ... сет ... вэа]</span>.</li>
+            <li>Для удаления строки — команда <code>DELETE FROM ... WHERE</code> <span class="pronounce">[дилИт фром ... вэа]</span> (не забывайте предлог <code>FROM</code>!).</li>
+        </ul>
 
-      <h3>3.2. Внешний ключ: <code>FOREIGN KEY ... REFERENCES</code> <span class="transcr">[фОрин ки ... рЭференсес]</span></h3>
-      <p>
-        Это ограничение-замок. Оно запрещает записать студенту несуществующий номер группы и не позволяет случайно удалить группу, пока в ней учатся студенты.
-      </p>
-<pre><code>-- Главная таблица: Список групп
+        <div class="warning-box">
+            <strong>⚠️ Три главных правила безопасности (часто спрашивают на экзамене!):</strong>
+            <ol style="margin-top: 8px; margin-bottom: 0;">
+                <li><b>Почему в условии пишем <code>WHERE id = 4</code>, а не <code>WHERE full_name = 'Орлов Максим'</code>?</b> Чтобы случайно не поменять стипендию или не отчислить его однофамильца!</li>
+                <li><b>Что будет, если забыть написать <code>WHERE</code> в <code>UPDATE</code> или <code>DELETE</code>?</b> MySQL мгновенно изменит или сотрёт <b>вообще все строки в таблице</b>, а кнопка <code>Ctrl + Z</code> в базах данных не работает!</li>
+                <li><b>Куда деваются удалённые <code>id</code>?</b> Если удалить студента с <code>id = 3</code> (из 5 студентов), то следующему новому студенту <code>AUTO_INCREMENT</code> даст номер <code>6</code>, а не <code>3</code>. Удалённые номера повторно никогда не выдаются, чтобы на новичка не записались старые оценки или долги отчисленного студента.</li>
+            </ol>
+        </div>
+
+        <div class="notebook">
+            <div class="notebook-header">✍️ Записать в тетрадь (Конспект + Код)</div>
+            <div class="code-wrapper">
+                <div class="code-bar"><span>SQL — Изменение и удаление</span><button class="copy-btn" onclick="copyCode(this)">Скопировать код</button></div>
+<pre><code>-- Изменить данные (UPDATE — обновить, SET — установить новое значение)
+UPDATE students 
+SET scholarship = 3000, course = 2 
+WHERE id = 4;
+
+-- Удалить строку (DELETE FROM — удалить из...)
+DELETE FROM students 
+WHERE id = 3;</code></pre>
+            </div>
+            <p><b>⚠️ Правило безопасности:</b> Никогда не запускать <code>UPDATE</code> и <code>DELETE FROM</code> без условия <code>WHERE id = ...</code>, иначе изменятся или удалятся <b>все</b> записи в таблице! Удалённые номера <code>id</code> повторно не выдаются.</p>
+        </div>
+
+        <h3>Шаг 2. Агрегатные функции (математика для бухгалтерии)</h3>
+        <p>Чтобы считать статистику без калькулятора, в MySQL встроены 5 агрегатных (математических) функций. Важно не путать первые две: <code>COUNT(*)</code> считает <b>количество строк</b> (людей), а <code>SUM(столбец)</code> складывает <b>числа внутри столбца</b> (деньги или штуки).</p>
+
+        <div class="notebook">
+            <div class="notebook-header">✍️ Записать в тетрадь (Конспект + Код)</div>
+            <p><b>Агрегатные функции (статистика):</b></p>
+            <ul>
+                <li><code>COUNT(*)</code> <span class="pronounce">[кАунт]</span> — посчитать количество строк.</li>
+                <li><code>SUM(столбец)</code> <span class="pronounce">[сам]</span> — посчитать сумму чисел в столбце.</li>
+                <li><code>AVG(столбец)</code> <span class="pronounce">[Эй-ви-джИ]</span> — среднее арифметическое значение.</li>
+                <li><code>MIN(столбец)</code> / <code>MAX(столбец)</code> — минимальное и максимальное число.</li>
+            </ul>
+            <div class="code-wrapper">
+                <div class="code-bar"><span>SQL — Подсчёт итогов</span><button class="copy-btn" onclick="copyCode(this)">Скопировать код</button></div>
+<pre><code>SELECT COUNT(*), SUM(scholarship), AVG(scholarship) FROM students;</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- ЧАСТЬ 4 -->
+    <section id="part4">
+        <span class="part-label">Часть 4</span>
+        <h2>Связи между таблицами (FOREIGN KEY, JOIN) и группировка (GROUP BY)</h2>
+
+        <h3>Шаг 1. Почему одной таблицы недостаточно? Внешний ключ (<code>FOREIGN KEY</code>)</h3>
+        <p>Представьте: в группе <code>ИС-101</code> учится 30 человек, и у всех один куратор — Белов Сергей Иванович. Если добавить столбец <code>curator</code> прямо в таблицу студентов, нам придётся 30 раз подряд скопировать его ФИО и телефон! Это занимает лишнюю память, приводит к опечаткам, а если куратор сменит телефон — придётся вручную менять его в 30 строках.</p>
+        <p>Программисты делят данные на <b>две отдельные таблицы</b>:</p>
+        <ol>
+            <li>Таблица <code>groups_list</code> <span class="pronounce">[групс лист]</span> (Список групп), где каждая группа и её куратор записаны ровно один раз под своим <code>id</code> (1 — ИС-101, 2 — ДЗ-102).</li>
+            <li>Таблица <code>students</code> (Студенты), где вместо названия группы и ФИО куратора хранится просто цифра <code>group_id</code> <span class="pronounce">[груп ай-дИ]</span> — номер группы (<code>1</code> или <code>2</code>).</li>
+        </ol>
+        <p>Базы со связанными таблицами называются <b>реляционными</b> (от англ. <i>relation</i> <span class="pronounce">[рилЭйшн]</span> — связь). Чтобы связать таблицы и защитить базу от ошибок (например, чтобы секретарь не мог зачислить студента в несуществующую группу №99), используется замок — <b>внешний ключ</b> <code>FOREIGN KEY ... REFERENCES</code> <span class="pronounce">[фОрин ки ... рЭференсес]</span>.</p>
+
+        <div class="notebook">
+            <div class="notebook-header">✍️ Записать в тетрадь (Конспект + Код)</div>
+            <p><b>Реляционная БД</b> — база данных, разделённая на несколько связанных по <code>id</code> таблиц, чтобы избегать дублирования текста и ошибок.</p>
+            <ul>
+                <li><code>PRIMARY KEY</code> <span class="pronounce">[прАймари ки]</span> — первичный ключ (собственный паспорт строки в своей таблице).</li>
+                <li><code>FOREIGN KEY</code> <span class="pronounce">[фОрин ки]</span> — внешний ключ (столбец-ссылка, который указывает на <code>id</code> в соседней таблице).</li>
+            </ul>
+            <div class="code-wrapper">
+                <div class="code-bar"><span>SQL — Две связанные таблицы</span><button class="copy-btn" onclick="copyCode(this)">Скопировать код</button></div>
+<pre><code>-- 1. Главная таблица (Группы)
 CREATE TABLE groups_list (
     id INT PRIMARY KEY AUTO_INCREMENT,
     group_name VARCHAR(20) NOT NULL,
     curator VARCHAR(100) NOT NULL
 );
 
--- Зависимая таблица со связью FOREIGN KEY:
+-- 2. Зависимая таблица (Студенты) со связью FOREIGN KEY
 CREATE TABLE students (
     id INT PRIMARY KEY AUTO_INCREMENT,
     full_name VARCHAR(100) NOT NULL,
+    scholarship INT DEFAULT 0,
     group_id INT,
     FOREIGN KEY (group_id) REFERENCES groups_list(id)
 );</code></pre>
+            </div>
+        </div>
 
-      <h3>3.3. Склейка таблиц: <code>JOIN ... ON</code> <span class="transcr">[джойн ... он]</span></h3>
-      <p>
-        Команда <code>JOIN</code> склеивает две таблицы при выводе на экран. 
-        Точка означает принадлежность: <code>имя_таблицы.имя_столбца</code>.
-      </p>
-<pre><code>SELECT students.full_name, groups_list.group_name, groups_list.curator
+        <h3>Шаг 2. Соединение таблиц на экране (<code>JOIN ... ON</code>)</h3>
+        <p>Компьютеру удобно хранить в таблице студентов цифры <code>1, 2, 3</code> в столбце <code>group_id</code>. Но человеку в ведомости нужны понятные названия групп и фамилии кураторов. Чтобы прямо в момент вывода на экран временно «склеить» две таблицы в одну красивую ведомость, служит команда <code>JOIN ... ON</code> <span class="pronounce">[джойн ... он]</span>!</p>
+        <ul>
+            <li>Когда в запросе участвуют две таблицы, названия столбцов пишут через точку: <code>таблица.столбец</code> (например, <code>students.full_name</code>, <code>groups_list.group_name</code>), чтобы MySQL точно знал, из какой таблицы брать данные.</li>
+            <li>После слова <code>ON</code> <span class="pronounce">[он]</span> («На основании») пишется правило сцепки: приравниваем внешний ключ студента (<code>students.group_id</code>) к первичному ключу группы (<code>groups_list.id</code>). Точка с запятой <code>;</code> ставится только один раз в самом конце всего запроса!</li>
+        </ul>
+
+        <div class="notebook">
+            <div class="notebook-header">✍️ Записать в тетрадь (Конспект + Код)</div>
+            <div class="code-wrapper">
+                <div class="code-bar"><span>SQL — Соединение таблиц через JOIN</span><button class="copy-btn" onclick="copyCode(this)">Скопировать код</button></div>
+<pre><code>-- Склеиваем две таблицы при выводе на экран (JOIN — присоединить, ON — правило сцепки)
+SELECT students.full_name, groups_list.group_name, groups_list.curator
 FROM students
-JOIN groups_list ON students.group_id = groups_list.id;</code></pre>
-      <p><em>Как читать строку ON:</em> «Склей строки там, где номер группы у студента (<code>students.group_id</code>) в точности равен паспорту группы (<code>groups_list.id</code>)».
+JOIN groups_list ON students.group_id = groups_list.id
+WHERE students.scholarship > 0;</code></pre>
+            </div>
+        </div>
 
-      <h3>3.4. Группировка: <code>GROUP BY</code> <span class="transcr">[груп бай]</span></h3>
-      <p>
-        Собирает строки в категории (корзинки) и применяет функции <code>COUNT</code> или <code>SUM</code> к каждой корзинке отдельно:
-      </p>
-<pre><code>-- Посчитать, сколько студентов учится в каждой группе по отдельности:
-SELECT group_id, COUNT(*) 
-FROM students 
+        <h3>Шаг 3. Группировка данных (<code>GROUP BY</code>)</h3>
+        <p>Функции <code>COUNT(*)</code> и <code>SUM(scholarship)</code> считают общее количество людей и сумму стипендий по всему колледжу. А что, если нужно узнать: «Сколько студентов учится <b>в каждой группе по отдельности</b> и сколько денег уходит на каждую группу?»</p>
+        <p>Для этого в конец запроса добавляют команду <code>GROUP BY</code> <span class="pronounce">[груп бай]</span> — «Сгруппировать по...». Она раскладывает строки в отдельные «корзинки» по номеру группы, и функции <code>COUNT</code>, <code>SUM</code> или <code>AVG</code> считают статистику внутри каждой корзинки отдельно!</p>
+
+        <div class="notebook">
+            <div class="notebook-header">✍️ Записать в тетрадь (Конспект + Код)</div>
+            <div class="code-wrapper">
+                <div class="code-bar"><span>SQL — Группировка GROUP BY</span><button class="copy-btn" onclick="copyCode(this)">Скопировать код</button></div>
+<pre><code>-- GROUP BY [груп бай] — разбивает строки на категории и считает итоги для каждой отдельно
+SELECT group_id, COUNT(*), SUM(scholarship)
+FROM students
 GROUP BY group_id;</code></pre>
+            </div>
+        </div>
     </section>
 
-    <!-- ТЕХНИЧЕСКОЕ ЗАДАНИЕ ДЛЯ ДОМАШНЕЙ РАБОТЫ -->
-    <section class="card">
-      <h2>4. Практическое домашнее задание: «Деканат колледжа»</h2>
-      <p>
-        Вам необходимо написать единый SQL-скрипт, содержащий последовательное выполнение всех пунктов ниже.
-      </p>
+    <!-- БЛОК САМОПРОВЕРКИ -->
+    <section id="quiz">
+        <span class="part-label">Подготовка к зачёту</span>
+        <h2>10 вопросов для самопроверки перед экзаменом</h2>
+        <p>Попробуйте ответить на вопрос устно, а затем нажмите на него, чтобы проверить себя:</p>
 
-      <h3>Шаг 1. Создание двух связанных таблиц</h3>
-      <ol>
-        <li>
-          Создайте главную таблицу отделений <code>departments</code>:
-          <ul>
-            <li><code>id</code> — <code>INT PRIMARY KEY AUTO_INCREMENT</code>;</li>
-            <li><code>department_name</code> — <code>VARCHAR(100) NOT NULL</code> (название отделения, например: <em>«Информационные технологии»</em>);</li>
-            <li><code>head_of_department</code> — <code>VARCHAR(100) NOT NULL</code> (ФИО заведующего отделением).</li>
-          </ul>
-        </li>
-        <li>
-          Создайте зависимую таблицу учебных групп <code>college_groups</code>:
-          <ul>
-            <li><code>id</code> — <code>INT PRIMARY KEY AUTO_INCREMENT</code>;</li>
-            <li><code>group_code</code> — <code>VARCHAR(20) NOT NULL</code> (шифр группы, например: <em>«ИС-101»</em>);</li>
-            <li><code>students_count</code> — <code>INT DEFAULT 0</code> (число студентов);</li>
-            <li><code>course_num</code> — <code>INT DEFAULT 1</code> (номер курса);</li>
-            <li><code>department_id</code> — <code>INT</code>, связанный внешним ключом <code>FOREIGN KEY</code> с полем <code>id</code> таблицы <code>departments</code>.</li>
-          </ul>
-        </li>
-      </ol>
+        <details>
+            <summary>1. В чём разница между БД, СУБД и SQL?</summary>
+            <p><b>БД</b> — это сам архив с таблицами. <b>СУБД (MySQL)</b> — программа, которая управляет этим архивом и охраняет его от ошибок. <b>SQL</b> — язык команд, на котором мы пишем запросы для СУБД.</p>
+        </details>
 
-      <h3>Шаг 2. Заполнение таблиц данными (INSERT)</h3>
-      <ol>
-        <li>Добавьте в таблицу <code>departments</code> <strong>3 разных отделения</strong> колледжа.</li>
-        <li>Добавьте в таблицу <code>college_groups</code> <strong>минимум 5 групп</strong>, указав для каждой соответствующий <code>department_id</code> (1, 2 или 3).</li>
-      </ol>
+        <details>
+            <summary>2. Какие два параметра мы пишем у столбца id, чтобы номера не повторялись и считались сами?</summary>
+            <p><code>PRIMARY KEY</code> (первичный ключ — обеспечивает уникальность и обязательность) и <code>AUTO_INCREMENT</code> (автоматическое увеличение номера на +1).</p>
+        </details>
 
-      <h3>Шаг 3. Модификация и удаление (UPDATE, DELETE)</h3>
-      <ol>
-        <li>Напишите запрос <code>UPDATE</code>, который переводит одну конкретную группу (по её <code>id</code>) на следующий курс (<code>course_num = course_num + 1</code>).</li>
-        <li>Напишите запрос <code>UPDATE</code>, который меняет число студентов (<code>students_count</code>) в одной из групп. Обязательно укажите <code>WHERE id = ...</code>.</li>
-        <li>Напишите запрос <code>DELETE FROM</code>, который удаляет одну конкретную группу по её <code>id</code>.</li>
-      </ol>
+        <details>
+            <summary>3. В чём разница между параметрами NOT NULL и DEFAULT?</summary>
+            <p><code>NOT NULL</code> строго требует заполнить поле при добавлении записи (иначе выдаст ошибку), а <code>DEFAULT</code> сам подставляет стандартное значение (например, 1 курс или 0 рублей), если поле оставили пустым.</p>
+        </details>
 
-      <h3>Шаг 4. Выборки и отчёты (SELECT, LIKE, JOIN, GROUP BY)</h3>
-      <ol>
-        <li>Напишите запрос с оператором <code>LIKE</code>, который находит все группы, чей шифр начинается на буквы <code>'ИС%'</code>.</li>
-        <li>Напишите запрос со склейкой <code>JOIN</code>, который выводит читаемый сводный отчёт: <strong>шифр группы</strong>, <strong>курс</strong>, <strong>название отделения</strong> и <strong>ФИО заведующего отделением</strong> (без числовых id).</li>
-        <li>Напишите запрос, выводящий все группы, отсортированные по убыванию числа студентов (<code>ORDER BY students_count DESC</code>).</li>
-        <li>Напишите аналитический запрос с группировкой <code>GROUP BY department_id</code>, который считает: сколько всего групп на каждом отделении (<code>COUNT(*)</code>) и сколько суммарно студентов там учится (<code>SUM(students_count)</code>).</li>
-      </ol>
+        <details>
+            <summary>4. Что случится с базой, если выполнить запрос: UPDATE students SET scholarship = 0; ?</summary>
+            <p>Так как в запросе нет условия <code>WHERE</code>, абсолютно у всех студентов в таблице стипендия обнулится.</p>
+        </details>
+
+        <details>
+            <summary>5. Если в таблице было 5 студентов и мы удалили студента с id = 3, какой id получит следующий новый студент?</summary>
+            <p>Он получит <code>id = 6</code>. Параметр <code>AUTO_INCREMENT</code> никогда не выдаёт старые удалённые номера повторно.</p>
+        </details>
+
+        <details>
+            <summary>6. Чем отличается поиск WHERE group_name = 'ИС' от WHERE group_name LIKE 'ИС%'?</summary>
+            <p>Знак <code>=</code> ищет только точное совпадение из двух букв <code>'ИС'</code>, а <code>LIKE 'ИС%'</code> благодаря джокеру <code>%</code> найдёт все группы, которые начинаются на <code>ИС</code> (ИС-101, ИС-202 и т.д.).</p>
+        </details>
+
+        <details>
+            <summary>7. Чем отличается функция COUNT(*) от SUM(scholarship)?</summary>
+            <p><code>COUNT(*)</code> считает количество строк (сколько человек в списке), а <code>SUM(scholarship)</code> складывает сами числа внутри столбца (общую сумму денег).</p>
+        </details>
+
+        <details>
+            <summary>8. Чем отличается PRIMARY KEY от FOREIGN KEY?</summary>
+            <p><code>PRIMARY KEY</code> (первичный ключ) — это личный уникальный номер строки в её собственной таблице, а <code>FOREIGN KEY</code> (внешний ключ) — это столбец-ссылка, который указывает на <code>id</code> в соседней таблице.</p>
+        </details>
+
+        <details>
+            <summary>9. Какая команда склеивает две таблицы при выводе на экран и какое слово задаёт правило их сцепки?</summary>
+            <p>Команда <code>JOIN</code> (присоединить), а правило сцепки ключей пишется после слова <code>ON</code> (например, <code>ON students.group_id = groups_list.id</code>).</p>
+        </details>
+
+        <details>
+            <summary>10. Зачем в конце запроса пишут команду GROUP BY?</summary>
+            <p>Чтобы разбить строки на категории (например, по группам или предметам) и посчитать статистику (<code>COUNT</code>, <code>SUM</code>, <code>AVG</code>) для каждой категории по отдельности.</p>
+        </details>
     </section>
 
-    <!-- ПРАВИЛА И РЕГЛАМЕНТ ЗАЩИТЫ -->
-    <section class="card">
-      <h2>5. Правила и порядок очной защиты</h2>
-      <div class="alert alert-warning">
-        <strong>Формат сдачи:</strong> Индивидуальная очная защита за компьютером преподавателя в начале следующей пары (2–3 минуты на студента).
-      </div>
+    <footer>
+        Курс «Базы данных и MySQL» • Конспект для студентов (Уроки 1–3)
+    </footer>
 
-      <ol>
-        <li><strong>Демонстрация запуска:</strong> Вы открываете свой код в OneCompiler (или сохранённый файл), нажимаете <code>Run</code> и показываете работающий результат без ошибок.</li>
-        <li><strong>Вопрос по синтаксису:</strong> Преподаватель указывает на случайную строчку в вашем коде (например, <code>REFERENCES</code> или <code>GROUP BY</code>) и просит объяснить, что делает каждое слово.</li>
-        <li><strong>Живая правка (Live Coding):</strong> Преподаватель просит изменить один параметр на лету (например: <em>«Покажи группы только 2 курса»</em> или <em>«Отсортируй по возрастанию ASC»</em>).</li>
-      </ol>
+</div>
 
-      <div class="alert alert-danger">
-        <strong>Для студентов, пропустивших занятия:</strong><br>
-        Оценка за пропущенную тему №3 выставляется <strong>исключительно по итогам успешной очной защиты данного задания</strong>. Сдача чужого или сгенерированного кода без понимания приравнивается к несдаче.
-      </div>
-    </section>
-
-    <!-- КРИТЕРИИ ОЦЕНИВАНИЯ -->
-    <section class="card">
-      <h2>6. Критерии оценивания</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Оценка</th>
-            <th>Критерии</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><span class="criteria-num">«Отлично» (5)</span></td>
-            <td>Код работает без ошибок. Присутствуют обе таблицы с <code>FOREIGN KEY</code>, все операции CRUD, рабочий <code>JOIN</code> и <code>GROUP BY</code>. Студент уверенно объясняет любую строчку и справляется с живой правкой.</td>
-          </tr>
-          <tr>
-            <td><span class="criteria-num">«Хорошо» (4)</span></td>
-            <td>Код рабочий, но допущены мелкие неточности, либо студент долго формулирует разницу между <code>PRIMARY KEY</code> и <code>FOREIGN KEY</code> / путается в параметре <code>ON</code>.</td>
-          </tr>
-          <tr>
-            <td><span class="criteria-num">«Удовлетворительно» (3)</span></td>
-            <td>Сделаны только базовые шаги 1 и 2 (создание и вставка), а команды <code>JOIN</code> и <code>GROUP BY</code> вызывают непреодолимые сложности.</td>
-          </tr>
-          <tr>
-            <td><span class="criteria-num">«Не зачтено» (2)</span></td>
-            <td>Задание не выполнено к началу занятия, код скопирован без понимания смысла команд, студент не может ответить на базовые вопросы. Назначается пересдача на консультации.</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-  </div>
+<script>
+    function copyCode(button) {
+        const pre = button.closest('.code-wrapper').querySelector('pre');
+        const text = pre.innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            const original = button.innerText;
+            button.innerText = 'Скопировано ✓';
+            button.style.background = '#16a34a';
+            setTimeout(() => {
+                button.innerText = original;
+                button.style.background = '#334155';
+            }, 1800);
+        });
+    }
+</script>
 
 </body>
 </html>
